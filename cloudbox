@@ -49,17 +49,19 @@ cloudbox(){
 	case $1 in
 		m)
 			echo "Core Repo Installation Begining"
-			echo "cd ~/cloudbox && sudo ansible-playbook cloudbox.yml --tags $2"
+			cd ~/cloudbox && sudo ansible-playbook cloudbox.yml --tags $2
 			;;
 		c)
 			echo "Community Repo Installation Begining"
-			echo "cd ~/community && sudo ansible-playbook community.yml --tags $2"
+			cd ~/community && sudo ansible-playbook community.yml --tags $2
 			;;
-		s)
-			echo restarting
-			;;
+    l)
+      echo "All available cloudbox tags:"
+      cd ~/cloudbox &&sudo ansible-playbook cloudbox.yml --list-tags 2>&1 | grep "TASK TAGS" | cut -d":" -f2 | awk '{sub(/\[/, "")sub(/\]/, "")}1' | sed -e 's/,//g' | xargs -n 1 | sort -u
+      ;;
 		d)
-			echo dedupe
+      echo "plex_dupefinder Begining"
+      plex_dupefinder
 			;;
 		u)
 			nohup cloudplow upload > /opt/cloudplow/myupload.log &
