@@ -7,17 +7,25 @@ Proceed to use cloudbox as a command line interactive shortcut for installing ap
 
 Interactive command line usaage is as such:  <br />
 Simply run the command cloudbox. It will reply with the following options: <br />
- "m) Core Repo Installation - tag" <br />
- "c) Community Repo Installation -tag" <br />
- "s) Do a something" <br />
- "d) Dedupe a deduper -tag" <br />
- "u) Cloudplow upload" <br />
- "e) Exit" <br />
+ m) Core Repo Installation - tag <br />
+ c) Community Repo Installation -tag <br />
+ l) List all ansible tags available to install<br />
+ d) Dedupe with plex_dupefinder (must be installed) <br />
+ u) Cloudplow upload <br />
+ e) Exit <br />
 
 
 Direct Command line usage is as such: <br />
+Each core interactive option is available as a direct command line argument. <br />
+for example you can install a package from the cloudbox core or community packages: <br />
 `cloudbox repo tagname (debug - optional/planned)` <br />
 repo is a simple variable asking for M for main or C for community <br />
-Examples: <br />
+Actual Examples: <br />
 To install the plex tag you would use `cloudbox m plex`. This will run `cd ~/cloudbox && sudo ansible-playbook cloudbox.yml --tags plex`. <br />
 To install the watchtower tag you could use `cloudbox c watchtower`. This will run `cd ~/community && sudo ansible-playbook community.yml --tags watchtower`. <br />
+
+It is possible to run a manual plex_dupefinder instance with: <br />
+`cloudbox d`
+
+or a manual cloudplow upload with:<br />
+`cloudbox u`
