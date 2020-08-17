@@ -1,11 +1,11 @@
 #!/bin/bash
 helper(){
-	echo "Please chose what you would like to do:"
 		while true; do
+       echo "Please chose what you would like to do:"
 				echo "m) Core Repo Installation - tag"
 				echo "c) Community Repo Installation -tag"
 				echo "l) List available tags to install"
-				echo "d) Dedupe a deduper -tag"
+				echo "d) Dedupe via plex_dupefinder"
 				echo "u) Cloudplow upload"
 				echo "e) Exit"
 				read  -n 1 -p "Make a selection:" helperinput
@@ -29,7 +29,8 @@ helper(){
               cd ~/cloudbox &&sudo ansible-playbook cloudbox.yml --list-tags 2>&1 | grep "TASK TAGS" | cut -d":" -f2 | awk '{sub(/\[/, "")sub(/\]/, "")}1' | sed -e 's/,//g' | xargs -n 1 | sort -u
 							;;
 						d)
-							echo dedupe
+							echo "plex_dupefinder Begining"
+              plex_dupefinder
 							;;
 						u)
 							nohup cloudplow upload > /opt/cloudplow/myupload.log &
