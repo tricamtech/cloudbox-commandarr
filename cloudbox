@@ -37,6 +37,7 @@ helper(){
               plex_dupefinder
 							;;
 						u)
+            echo "Cloudplow upload Begining in background. Log is at /opt/cloudplow/myupload.log"
 							nohup cloudplow upload > /opt/cloudplow/myupload.log &
 							;;
 						e)
