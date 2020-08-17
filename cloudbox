@@ -1,26 +1,78 @@
 #!/bin/bash
+helper(){
+	echo "Please chose what you would like to do:"
+		while true; do
+				echo "m) Core Repo Installation - tag"
+				echo "c) Community Repo Installation -tag"
+				echo "l) List available tags to install"
+				echo "d) Dedupe a deduper -tag"
+				echo "u) Cloudplow upload"
+				echo "e) Exit"
+				read  -n 1 -p "Make a selection:" helperinput
+				[[ -z $helperinput ]] && break
+			echo $'\n'
+				case $helperinput in
+						m)
+							echo "Core Repo Installation Begining"
+							echo "Which application would you like to install?"
+							read -p "Enter Tag Name:" tag
+							cd ~/cloudbox && sudo ansible-playbook cloudbox.yml --tags $tag
+							;;
+						c)
+							echo "Community Repo Installation Begining"
+							echo "Which application would you like to install?"
+							read -p "Enter Tag Name:" tag
+							cd ~/community && sudo ansible-playbook community.yml --tags $tag
+							;;
+						l)
+							echo "All available cloudbox tags:"
+              cd ~/cloudbox &&sudo ansible-playbook cloudbox.yml --list-tags 2>&1 | grep "TASK TAGS" | cut -d":" -f2 | awk '{sub(/\[/, "")sub(/\]/, "")}1' | sed -e 's/,//g' | xargs -n 1 | sort -u
+							;;
+						d)
+							echo dedupe
+							;;
+						u)
+							nohup cloudplow upload > /opt/cloudplow/myupload.log &
+							;;
+						e)
+							exit
+							;;
+						*)
+							echo "Passed Variables= $helperinput $1 $2 $3"
+							exit
+							;;
+					esac
+			done
+	}
 cloudbox(){
-#!/bin/bash
-# case example
-case $1 in
-start)
-echo starting
-;;
-stop)
-echo stoping
-;;
-restart)
-echo restarting
-;;
-*)
-echo don\'t know
-;;
-esac
+	case $1 in
+		m)
+			echo "Core Repo Installation Begining"
+			echo "cd ~/cloudbox && sudo ansible-playbook cloudbox.yml --tags $2"
+			;;
+		c)
+			echo "Community Repo Installation Begining"
+			echo "cd ~/community && sudo ansible-playbook community.yml --tags $2"
+			;;
+		s)
+			echo restarting
+			;;
+		d)
+			echo dedupe
+			;;
+		u)
+			nohup cloudplow upload > /opt/cloudplow/myupload.log &
+			;;
+		*)
+			echo Welcome to Cloudbox Commandarr.
+			helper
+			;;
+	esac
 
-}
+	}
 
-## call the math function with 5 and 10 as  arguments 
+## Call the main function
 cloudbox $1 $2 $3
 
 ## Do after cloudbox():
-echo "5 + 10 = $?"
+echo "We have finished. Have a nice day!"
