@@ -1,7 +1,7 @@
 #!/bin/bash
 helper(){
 		while true; do
-       echo "\n Please choose what you would like to do:"
+       echo "Please choose what you would like to do:"
         echo "i) List server information as shown on login (MOTD)"
 				echo "m) Core Repo Installation - tag"
 				echo "c) Community Repo Installation -tag"
