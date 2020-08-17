@@ -1,0 +1,26 @@
+#!/bin/bash
+cloudbox(){
+#!/bin/bash
+# case example
+case $1 in
+start)
+echo starting
+;;
+stop)
+echo stoping
+;;
+restart)
+echo restarting
+;;
+*)
+echo don\'t know
+;;
+esac
+
+}
+
+## call the math function with 5 and 10 as  arguments 
+cloudbox $1 $2 $3
+
+## Do after cloudbox():
+echo "5 + 10 = $?"
