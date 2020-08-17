@@ -1,12 +1,15 @@
 # Cloudbox-Commander
  A simple Bash script for cloudbox shortcuts.  <br /> <br />
 
-Add this script named cloudbox to ~/.local/bin/ <br /> <br />
+Add this script named cloudbox to ~/.local/bin/ <br />
+or (better) add a symlink from its location to  ~/.local/bin/cloudbox<br />
+`ln -s ~/cloudbox-commandarr/cloudbox ~/.local/bin/cloudbox`
 
 Proceed to use cloudbox as a command line interactive shortcut for installing applications with ansible or for doing other useful things on a cloudbox server. <br /> <br />
 
 Interactive command line usaage is as such:  <br />
 Simply run the command cloudbox. It will reply with the following options: <br />
+ i) Show Server information as seen on login (MOTD) <br />
  m) Core Repo Installation - tag <br />
  c) Community Repo Installation -tag <br />
  l) List all ansible tags available to install<br />
