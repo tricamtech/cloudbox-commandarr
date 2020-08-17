@@ -1,7 +1,8 @@
 #!/bin/bash
 helper(){
 		while true; do
-       echo "Please chose what you would like to do:"
+       echo "\n Please choose what you would like to do:"
+        echo "i) List server information as shown on login (MOTD)"
 				echo "m) Core Repo Installation - tag"
 				echo "c) Community Repo Installation -tag"
 				echo "l) List available tags to install"
@@ -12,6 +13,9 @@ helper(){
 				[[ -z $helperinput ]] && break
 			echo $'\n'
 				case $helperinput in
+            i)
+              cat /var/run/motd.dynamic
+              ;;
 						m)
 							echo "Core Repo Installation Begining"
 							echo "Which application would you like to install?"
@@ -47,6 +51,9 @@ helper(){
 	}
 cloudbox(){
 	case $1 in
+    i)
+      cat /var/run/motd.dynamic
+      ;;
 		m)
 			echo "Core Repo Installation Begining"
 			cd ~/cloudbox && sudo ansible-playbook cloudbox.yml --tags $2
@@ -81,6 +88,7 @@ cloudbox(){
       \     \___(  <_> )  Y Y  \  Y Y  \/ __ \|   |  \/ /_/ | / __ \|  | \/|  | \/
        \______  /\____/|__|_|  /__|_|  (____  /___|  /\____ |(____  /__|   |__|
               \/             \/      \/     \/     \/      \/     \/
+
 #########################################################################
 # Author:   TRiCAM                                                      #
 # URL:      https://github.com/tricamtech/cloudbox-commandarr           #
