@@ -56,6 +56,7 @@ helper(){
               echo "9) MergerFS"
               echo "10) UnionFS"
               echo "11) Lets Encrypt"
+              echo "12) Comandarr cloudplow upload"
               read -p "Log:" log
                 case $log in
                     1)
@@ -92,6 +93,7 @@ helper(){
                     docker logs -f letsencrypt
                     ;;
                     12)
+                    tail -F /opt/cloudplow/myupload.log
                     ;;
                   esac
               ;;
