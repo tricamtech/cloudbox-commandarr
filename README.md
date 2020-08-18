@@ -12,15 +12,18 @@ Simply run the command cloudbox. It will reply with the following options: <br /
  i) Show Server information as seen on login (MOTD) <br />
  m) Core Repo Installation - tag <br />
  c) Community Repo Installation -tag <br />
- l) List all ansible tags available to install<br />
+ a) List all ansible tags available to install<br />
  d) Dedupe with plex_dupefinder (must be installed) <br />
  u) Cloudplow upload <br />
+ l) View Cloudbox logs<br />
+ n) View Network info<br />
+ d) View Docker container logs (not implemmeted yet)<br />
  e) Exit <br />
 
 
 Direct Command line usage is as such: <br />
-Each core interactive option is available as a direct command line argument. <br />
-for example you can install a package from the cloudbox core or community packages: <br />
+Many core interactive options are available as a direct command line argument. <br />
+For example you can install a package from the cloudbox core or community packages: <br />
 `cloudbox repo tagname (debug - optional/planned)` <br />
 repo is a simple variable asking for M for main or C for community <br />
 Actual Examples: <br />
