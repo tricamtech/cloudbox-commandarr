@@ -54,7 +54,7 @@ helper(){
               echo "10) UnionFS"
               echo "11) Lets Encrypt"
               read -p "Log:" log
-                case $log
+                case $log in
                     1)
                     cat ~/logs/cloudbox_backup-<DATE>.log
                     ;;
