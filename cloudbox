@@ -110,7 +110,7 @@ helper(){
             s)
               echo "Cloudbox configuration, Choose a file to edit:"
               echo "1) Ansible Encrypted Accounts - accounts.yml"
-              echo "1) Plaintext Accounts - accounts.yml"
+              echo "2) Plaintext Accounts - accounts.yml"
               echo "3) General Settings - settings.yml"
               echo "4) Advanced Settings - adv_settings.yml"
               echo "5) Backup Settings - backup_config.yml"
