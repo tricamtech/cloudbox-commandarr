@@ -5,9 +5,12 @@ helper(){
         echo "i) List server information as shown on login (MOTD)"
 				echo "m) Core Repo Installation - tag"
 				echo "c) Community Repo Installation -tag"
-				echo "l) List available tags to install"
+				echo "a) List available tags to install"
 				echo "d) Dedupe via plex_dupefinder"
 				echo "u) Cloudplow upload"
+        echo "l) View Cloudbox logs"
+        echo "n) View Network info"
+        echo "d) View Docker container logs (not implemmeted yet)"
 				echo "e) Exit"
 				read  -n 1 -p "Make a selection:" helperinput
 				[[ -z $helperinput ]] && break
