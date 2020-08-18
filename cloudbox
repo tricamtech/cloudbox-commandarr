@@ -6,11 +6,13 @@ helper(){
 				echo "m) Core Repo Installation - tag"
 				echo "c) Community Repo Installation -tag"
 				echo "a) List available tags to install"
+        echo "b) Run a manual Cloudbox Backup"
 				echo "d) Dedupe via plex_dupefinder"
 				echo "u) Cloudplow upload"
         echo "l) View Cloudbox logs"
         echo "n) View Network info"
         echo "d) View Docker container logs (not implemmeted yet)"
+        echo "s) Edit configuration files for Cloudbox"
 				echo "e) Exit"
 				read  -n 1 -p "Make a selection:" helperinput
 				[[ -z $helperinput ]] && break
@@ -33,8 +35,12 @@ helper(){
 							;;
 						a)
 							echo "All available cloudbox tags:"
-              cd ~/cloudbox &&sudo ansible-playbook cloudbox.yml --list-tags 2>&1 | grep "TASK TAGS" | cut -d":" -f2 | awk '{sub(/\[/, "")sub(/\]/, "")}1' | sed -e 's/,//g' | xargs -n 1 | sort -u
+              cd ~/cloudbox && sudo ansible-playbook cloudbox.yml --list-tags 2>&1 | grep "TASK TAGS" | cut -d":" -f2 | awk '{sub(/\[/, "")sub(/\]/, "")}1' | sed -e 's/,//g' | xargs -n 1 | sort -u
 							;;
+            b)
+              echo "Cloudbox backup Beginning"
+              cd ~/cloudbox && sudo ansible-playbook cloudbox.yml --tags backup
+              ;;
 						d)
 							echo "plex_dupefinder Begining"
               plex_dupefinder
@@ -63,7 +69,7 @@ helper(){
                     cat ~/logs/cloudbox_backup-<DATE>.log
                     ;;
                     2)
-                    tail -F ~/logs/cloudbox_backup-<DATE>.log
+                    tail -F ~/logs/cloudbox_backup.log
                     ;;
                     3)
                     tail -F /opt/plex_autoscan/plex_autoscan.log
@@ -100,6 +106,60 @@ helper(){
             n)
               echo "Network Info:"
               vnstat
+              ;;
+            s)
+              echo "Cloudbox configuration, Choose a file to edit:"
+              echo "1) Ansible Encrypted Accounts - accounts.yml"
+              echo "1) Plaintext Accounts - accounts.yml"
+              echo "3) General Settings - settings.yml"
+              echo "4) Advanced Settings - adv_settings.yml"
+              echo "5) Backup Settings - backup_config.yml"
+              echo "6) Cloudplow Settings - cloudplow/config.json"
+              echo "7) (Plex) Autoscan - plex_autoscan/config/config.json"
+            #  echo "8) "
+            #  echo "9) "
+            #  echo "10) "
+            #  echo "11) "
+            #  echo "12) "
+              read -p "Log:" log
+                case $log in
+                    1)
+                    cd ~/cloudbox/ && ansible-vault edit accounts.yml
+                    ;;
+                    2)
+                    cd ~/cloudbox/ && nano accounts.yml
+                    ;;
+                    3)
+                    cd ~/cloudbox/ && nano settings.yml
+                    ;;
+                    4)
+                    cd ~/cloudbox/ && nano adv_settings.yml
+                    ;;
+                    5)
+                    cd ~/cloudbox && nano backup_config.yml
+                    ;;
+                    6)
+                    nano /opt/cloudplow/config.json
+                    ;;
+                    7)
+                    nano /opt/plex_autoscan/config/config.json
+                    ;;
+                #    8)
+                #
+                #    ;;
+                #    9)
+                #
+                #    ;;
+                #    10)
+                #
+                #    ;;
+                #    11)
+                #
+                #    ;;
+                #    12)
+                #
+                #    ;;
+                  esac
               ;;
             e)
               echo "Goodbye!"
