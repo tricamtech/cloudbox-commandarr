@@ -121,8 +121,8 @@ helper(){
             #  echo "10) "
             #  echo "11) "
             #  echo "12) "
-              read -p "Log:" log
-                case $log in
+              read -p "Config file:" cfgfile
+                case $cfgfile in
                     1)
                     cd ~/cloudbox/ && ansible-vault edit accounts.yml
                     ;;
