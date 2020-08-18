@@ -13,11 +13,13 @@ Simply run the command cloudbox. It will reply with the following options: <br /
  m) Core Repo Installation - tag <br />
  c) Community Repo Installation -tag <br />
  a) List all ansible tags available to install<br />
+ b) Run a manual Cloudbox Backup<br />
  d) Dedupe with plex_dupefinder (must be installed) <br />
  u) Cloudplow upload <br />
  l) View Cloudbox logs<br />
  n) View Network info<br />
  d) View Docker container logs (not implemmeted yet)<br />
+ s) Edit configuration files for Cloudbox<br />
  e) Exit <br />
 
 
