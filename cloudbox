@@ -28,7 +28,7 @@ helper(){
 							read -p "Enter Tag Name:" tag
 							cd ~/community && sudo ansible-playbook community.yml --tags $tag
 							;;
-						l)
+						a)
 							echo "All available cloudbox tags:"
               cd ~/cloudbox &&sudo ansible-playbook cloudbox.yml --list-tags 2>&1 | grep "TASK TAGS" | cut -d":" -f2 | awk '{sub(/\[/, "")sub(/\]/, "")}1' | sed -e 's/,//g' | xargs -n 1 | sort -u
 							;;
@@ -40,9 +40,66 @@ helper(){
               echo "Cloudplow upload Begining in background. Log is at /opt/cloudplow/myupload.log"
 							nohup cloudplow upload > /opt/cloudplow/myupload.log &
 							;;
-						e)
-							exit
-							;;
+            l)
+              echo "Cloudbox logs, Choose a Log to view:"
+              echo "1) Previous Backups"
+              echo "2) Curent Backup"
+              echo "3) Plex Autoscan"
+              echo "4) Cloudplow"
+              echo "5) Rclone VFS"
+              echo "6) Rclone Cache"
+              echo "7) Plexdrive 4"
+              echo "8) Plexdrive 5"
+              echo "9) MergerFS"
+              echo "10) UnionFS"
+              echo "11) Lets Encrypt"
+              read -p "Log:" log
+                case $log
+                    1)
+                    cat ~/logs/cloudbox_backup-<DATE>.log
+                    ;;
+                    2)
+                    tail -F ~/logs/cloudbox_backup-<DATE>.log
+                    ;;
+                    3)
+                    tail -F /opt/plex_autoscan/plex_autoscan.log
+                    ;;
+                    4)
+                    tail -F /opt/cloudplow/cloudplow.log
+                    ;;
+                    5)
+                    sudo journalctl -o cat -fu rclone_vfs.service
+                    ;;
+                    6)
+                    sudo journalctl -o cat -fu rclone_cache.service
+                    ;;
+                    7)
+                    sudo journalctl -o cat -fu plexdrive4.service
+                    ;;
+                    8)
+                    sudo journalctl -o cat -fu plexdrive5.service
+                    ;;
+                    9)
+                    sudo journalctl -o cat -fu mergerfs.service
+                    ;;
+                    10)
+                    sudo journalctl -fu unionfs.service
+                    ;;
+                    11)
+                    docker logs -f letsencrypt
+                    ;;
+                    12)
+                    ;;
+                  esac
+              ;;
+            n)
+              echo "Network Info:"
+              vnstat
+              ;;
+            e)
+              echo "Goodbye!"
+              exit
+              ;;
 						*)
 							echo "Passed Variables= $helperinput $1 $2 $3"
 							exit
@@ -63,7 +120,7 @@ cloudbox(){
 			echo "Community Repo Installation Begining"
 			cd ~/community && sudo ansible-playbook community.yml --tags $2
 			;;
-    l)
+    a)
       echo "All available cloudbox tags:"
       cd ~/cloudbox &&sudo ansible-playbook cloudbox.yml --list-tags 2>&1 | grep "TASK TAGS" | cut -d":" -f2 | awk '{sub(/\[/, "")sub(/\]/, "")}1' | sed -e 's/,//g' | xargs -n 1 | sort -u
       ;;
