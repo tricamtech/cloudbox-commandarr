@@ -2,26 +2,27 @@
 helper(){
 		while true; do
        echo "Please choose what you would like to do:"
-        echo "i) List server information as shown on login (MOTD)"
-				echo "m) Core Repo Installation - tag"
+        echo "a) List server information as shown on login (MOTD)"
+				echo "b) Core Repo Installation - tag"
 				echo "c) Community Repo Installation -tag"
-				echo "a) List available tags to install"
-        echo "b) Run a manual Cloudbox Backup"
-				echo "d) Dedupe via plex_dupefinder"
-				echo "u) Cloudplow upload"
-        echo "l) View Cloudbox logs"
-        echo "n) View Network info"
-        echo "d) View Docker container logs (not implemmeted yet)"
-        echo "s) Edit configuration files for Cloudbox"
-				echo "e) Exit"
+				echo "d) List available tags to install"
+        echo "e) Run a manual Cloudbox Backup"
+				echo "f) Dedupe via plex_dupefinder"
+				echo "g) Cloudplow upload"
+        echo "h) View Cloudbox logs"
+        echo "i) View Network info"
+        echo "j) View Docker container logs (not implemmeted yet)"
+        echo "k) Edit configuration files for Cloudbox"
+				echo "l) Exit"
+        echo "m) View disk usage"
 				read  -n 1 -p "Make a selection:" helperinput
 				[[ -z $helperinput ]] && break
 			echo $'\n'
 				case $helperinput in
-            i)
+            a)
               cat /var/run/motd.dynamic
               ;;
-						m)
+						b)
 							echo "Core Repo Installation Begining"
 							echo "Which application would you like to install?"
 							read -p "Enter Tag Name:" tag
@@ -33,23 +34,23 @@ helper(){
 							read -p "Enter Tag Name:" tag
 							cd ~/community && sudo ansible-playbook community.yml --tags $tag
 							;;
-						a)
+						d)
 							echo "All available cloudbox tags:"
               cd ~/cloudbox && sudo ansible-playbook cloudbox.yml --list-tags 2>&1 | grep "TASK TAGS" | cut -d":" -f2 | awk '{sub(/\[/, "")sub(/\]/, "")}1' | sed -e 's/,//g' | xargs -n 1 | sort -u
 							;;
-            b)
+            e)
               echo "Cloudbox backup Beginning"
               cd ~/cloudbox && sudo ansible-playbook cloudbox.yml --tags backup
               ;;
-						d)
+						f)
 							echo "plex_dupefinder Begining"
               plex_dupefinder
 							;;
-						u)
+						g)
               echo "Cloudplow upload Begining in background. Log is at /opt/cloudplow/myupload.log"
 							nohup cloudplow upload > /opt/cloudplow/myupload.log &
 							;;
-            l)
+            h)
               echo "Cloudbox logs, Choose a Log to view:"
               echo "1) Previous Backups"
               echo "2) Curent Backup"
@@ -103,11 +104,14 @@ helper(){
                     ;;
                   esac
               ;;
-            n)
+            i)
               echo "Network Info:"
               vnstat
               ;;
-            s)
+            j)
+              echo "View Docker logs - Coming soon"
+              ;;
+            k)
               echo "Cloudbox configuration, Choose a file to edit:"
               echo "1) Ansible Encrypted Accounts - accounts.yml"
               echo "2) Plaintext Accounts - accounts.yml"
@@ -161,9 +165,12 @@ helper(){
                 #    ;;
                   esac
               ;;
-            e)
+            l)
               echo "Goodbye!"
               exit
+              ;;
+            m)
+              cd / && ncdu
               ;;
 						*)
 							echo "Passed Variables= $helperinput $1 $2 $3"
