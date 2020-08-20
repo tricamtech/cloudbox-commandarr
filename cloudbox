@@ -120,7 +120,7 @@ helper(){
               echo "5) Backup Settings - backup_config.yml"
               echo "6) Cloudplow Settings - cloudplow/config.json"
               echo "7) (Plex) Autoscan - plex_autoscan/config/config.json"
-            #  echo "8) "
+              echo "8) MOTD"
             #  echo "9) "
             #  echo "10) "
             #  echo "11) "
@@ -148,9 +148,9 @@ helper(){
                     7)
                     nano /opt/plex_autoscan/config/config.json
                     ;;
-                #    8)
-                #
-                #    ;;
+                    8)
+                    nano /opt/motd/config.json
+                    ;;
                 #    9)
                 #
                 #    ;;
